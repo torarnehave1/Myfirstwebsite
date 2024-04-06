@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Change to the project directory
-cd /var/www/html/myfirstsite
+cd /var/www/html/myfirstwebsite
 
 # Pull the latest changes from the remote repository
 git pull
