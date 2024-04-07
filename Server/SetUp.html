@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Server Setup Summary</title>
+</head>
+<body>
+
+<h1>Server Setup Summary</h1>
+
+<h2>Setting up Nginx web server</h2>
+
+<h3>Install Nginx</h3>
+
+<pre>
+1  sudo apt install nginx
+</pre>
+
+<h3>Configure Nginx sites</h3>
+
+<p>Edited Nginx config file:</p>
+
+<pre>
+/etc/nginx/sites-available/default
+</pre>
+
+<h3>Restart Nginx</h3>
+
+<pre>
+10  sudo systemctl status nginx
+</pre>
+
+<h2>Setting up first website</h2>
+
+<h3>Clone GitHub repo</h3>
+
+<p>Cloned repo into /var/www/html folder:</p>
+
+<pre>
+63  git clone https://github.com/torarnehave1/Myfirstwebsite /var/www/html/Myfirstwebsite  
+</pre>
+
+<h3>Configure Nginx site</h3>
+
+<p>Edited Nginx config:</p>
+
+<pre>
+/etc/nginx/sites-available/default
+</pre>
+
+<h3>Restart Nginx</h3>
+
+<pre>
+78  sudo systemctl restart nginx
+</pre>
+
+<h2>Automating site pull with cronjob</h2>
+
+<h3>Create script</h3>
+
+<p>Created script at:</p>
+
+<pre>
+/opt/scripts/script.sh
+</pre>
+
+<p>Made executable:</p>
+
+<pre>
+114  sudo chmod +x /opt/scripts/script.sh
+</pre>
+
+<h3>Cronjob</h3>  
+
+<p>Cronjob file:</p>
+
+<pre>
+/etc/cron.d/cronscript
+</pre>
+
+<p>Made executable:</p>
+
+<pre>
+93 chmod 644 /etc/cron.d/cronscript
+</pre>
+
+<h3>Restart cron</h3>
+
+<pre>  
+96 sudo systemctl restart cron
+</pre>
+
+<h2>Setting up second website</h2>
+
+<h3>Clone GitHub repo</h3>
+
+<p>Cloned into /var/www/html/site2:</p>
+
+<pre>
+130 git clone https://github.com/torarnehave1/site2 /var/www/html/site2
+</pre>
+
+<h3>Configure Nginx</h3>
+
+<p>Edited Nginx config:</p>
+
+<pre>  
+/etc/nginx/sites-available/default
+</pre>
+
+<h3>Setup Node.js site with pm2</h3>
+
+<pre>
+147 sudo npm install pm2@latest -g
+150 pm2 start server.js --name "my-site2"
+</pre>
+
+<h2>SSL Certificates</h2> 
+
+<h3>Install certbot</h3>
+
+<pre>
+186 sudo apt install certbot python3-certbot-nginx 
+</pre>
+
+<h3>Obtain SSL certs</h3>
+
+<pre>
+187 sudo certbot --nginx
+</pre>
+
+</body>
+</html>
