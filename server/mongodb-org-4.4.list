@@ -1,0 +1,1 @@
+deb [arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-archive-keyring.gpg] http://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/4.4 multiverse
