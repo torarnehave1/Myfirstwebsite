@@ -1,4 +1,9 @@
+import dotenv from 'dotenv'; 
+
+dotenv.config();
+
 import { Client, Databases, ID , Functions} from 'appwrite';
+//import { response } from 'express';
 
 /**
  * Initializes a new Appwrite client.
@@ -11,11 +16,12 @@ import { Client, Databases, ID , Functions} from 'appwrite';
  * @returns {Client} The Appwrite client instance.
  */
 
-const apiEndpoint = import.meta.env.API_ENDPOINT;
-const projectId = import.meta.env.API_PROJECT_ID;
-const databaseKey = import.meta.env.API_DATABASE_KEY;
-const collectionKey = import.meta.env.API_COLLECTION_KEY;
-const functionId = import.meta.env.API_FUNCTION_ID;
+
+const apiEndpoint = process.env.API_ENDPOINT;
+const projectId = process.env.API_PROJECT_ID;
+const databaseKey = process.env.API_DATABASE_KEY;
+const collectionKey = process.env.API_COLLECTION_KEY;
+const functionId = process.env.API_FUNCTION_ID;
 
 //console.log(apiEndpoint, projectId, databaseKey, collectionKey);
 
@@ -28,13 +34,8 @@ client
 
 const functions = new Functions(client);
 
-const result = await functions.createExecution( functionId
-, // functionId '', 
-// body (optional) false,
- // async (optional) '', 
- // path (optional) ExecutionMethod.GET, 
- // method (optional) {}
-  // headers (optional) 
-);
-
-    console.log(response);
+(async () => {
+    const result = await functions.createExecution(functionId);
+    console.log(result);
+  })();
+  
