@@ -28,7 +28,7 @@ client
 
 const functions = new Functions(client);
 
-const result = await functions.createExecution( '<FUNCTION_ID>'
+const result = await functions.createExecution( functionId
 , // functionId '', 
 // body (optional) false,
  // async (optional) '', 
