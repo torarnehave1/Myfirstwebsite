@@ -1,9 +1,10 @@
 import dotenv from 'dotenv'; 
+import { response } from 'express';
 
 dotenv.config();
 
 import { Client, Databases, ID , Functions} from 'appwrite';
-//import { response } from 'express';
+
 
 /**
  * Initializes a new Appwrite client.
@@ -36,6 +37,7 @@ const functions = new Functions(client);
 
 (async () => {
     const result = await functions.createExecution(functionId);
+    console.log(response);
     console.log(result);
   })();
   
