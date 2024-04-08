@@ -1,22 +1,48 @@
-# Project Code Explanation
+# ⚡ Node.js Starter Function
 
-## index.html
+A simple starter function. Edit `src/main.js` to get started and create something awesome! 🚀
 
-The index.html file defines a basic HTML document structure with the following elements:
+## 🧰 Usage
 
-- `<!DOCTYPE html>` - The doctype declaration indicating this is an HTML document
-- `<html>` - The root HTML element  
-- `<head>` - Contains meta information about the document
-- `<title>` - The title of the web page
-- `<body>` - The visible content of the web page
-- `<p>` - A paragraph element with the text "Dette er en test" 
-- `<script>` - Includes the JavaScript code from app.js
+### GET /
 
-## app.js
+- Returns a "Hello, World!" message.
 
-The app.js file contains a simple JavaScript statement:
+**Response**
 
-```js
-// write out hello world
-// print "Hello World" to the console
-console.log("Hello World");
+Sample `200` Response:
+
+```text
+Hello, World!
+```
+
+### POST, PUT, PATCH, DELETE /
+
+- Returns a "Learn More" JSON response.
+
+**Response**
+
+Sample `200` Response:
+
+```json
+{
+  "motto": "Build like a team of hundreds_",
+  "learn": "https://appwrite.io/docs",
+  "connect": "https://appwrite.io/discord",
+  "getInspired": "https://builtwith.appwrite.io"
+}
+```
+
+## ⚙️ Configuration
+
+| Setting           | Value         |
+|-------------------|---------------|
+| Runtime           | Node (18.0)   |
+| Entrypoint        | `src/main.js` |
+| Build Commands    | `npm install` |
+| Permissions       | `any`         |
+| Timeout (Seconds) | 15            |
+
+## 🔒 Environment Variables
+
+No environment variables required.
