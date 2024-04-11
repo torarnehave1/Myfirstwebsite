@@ -1,12 +1,13 @@
-//Write a node express server that listens on port 3000 and responds to a GET request with a message of your choice.    
+// server.js
 import express from 'express';
-const app = express();
-const port = 3000;
+import { ViteExpress } from 'vite-plugin-node/dist/plugin';
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
+const app = express();
+
+app.get('/api/message', (_, res) => {
+  res.send('Hello from Express!');
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-}); 
+ViteExpress.listen(app, 3000, () => {
+  console.log('Server is listening on port 3000');
+});
