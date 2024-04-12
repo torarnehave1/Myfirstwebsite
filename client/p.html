@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="module" src="/@vite/client"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>API Question Interface</title>
+</head>
+<body>
+<h1>Ask a Question</h1>
+<input type="text" id="questionInput" placeholder="Enter your question here...">
+<button onclick="askQuestion()">Submit</button>
+<div id="answerDisplay">Your answer will appear here...</div>
+
+<script>
+function askQuestion() {
+    var question = document.getElementById("questionInput").value;
+    const options = {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer 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'
+        },
+        body: JSON.stringify({
+            model: 'pplx-7b-online',
+            messages: [
+                {role: 'system', content: 'Be precise and concise.'},
+                {role: 'user', content: question}
+            ]
+        })
+    };
+
+    fetch('https://api.perplexity.ai/chat/completions', options)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.choices && data.choices.length > 0 && data.choices[0].message) {
+            let content = data.choices[0].message.content;
+            console.log(content);
+            
+            document.getElementById('answerDisplay').innerText = content;
+     
+
+} else {
+            document.getElementById('answerDisplay').innerHTML = "No valid response received.";
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('answerDisplay').innerHTML = error.message;
+    });
+}
+</script>
+</body>
+</html>
