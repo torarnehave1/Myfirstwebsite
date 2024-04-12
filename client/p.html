@@ -4,13 +4,17 @@
   <script type="module" src="/@vite/client"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css">
   <title>API Question Interface</title>
 </head>
 <body>
 <h1>Ask a Question</h1>
 <input type="text" id="questionInput" placeholder="Enter your question here...">
 <button onclick="askQuestion()">Submit</button>
-<div id="answerDisplay">Your answer will appear here...</div>
+<div id="answerDisplay">Your  will appear here...</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-markup.min.js"></script>
 
 <script>
 function askQuestion() {
@@ -42,9 +46,15 @@ function askQuestion() {
         if (data.choices && data.choices.length > 0 && data.choices[0].message) {
             let content = data.choices[0].message.content;
             console.log(content);
-            
-            document.getElementById('answerDisplay').innerText = content;
-     
+            //answerDisplay.innerText = `<pre><code class="language-html">${content}</code></pre>`;
+            answerDisplay.innerText = content
+            //document.getElementById('answerDisplay').innerText = content;
+            if (content.includes('HTML')) {
+                answerDisplay.style.backgroundColor = '#1F1F1F';
+            answerDisplay.style.color = '#9CDCFE';
+            } else {
+                
+            }
 
 } else {
             document.getElementById('answerDisplay').innerHTML = "No valid response received.";
@@ -56,5 +66,10 @@ function askQuestion() {
     });
 }
 </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-markup.min.js"></script>
+
+
 </body>
 </html>
