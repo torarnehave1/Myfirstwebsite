@@ -1,81 +1,28 @@
-# Redirect all HTTP traffic to HTTPS
-server {
-    listen 80;
-    listen [::]:80;
-    server_name slowyou.io www.slowyou.io maiken.slowyou.io site2.slowyou.io;
-    return 301 https://$host$request_uri;
-}
-
-# Main server configuration for slowyou.io
+# HTTPS server configuration
 server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
     server_name slowyou.io www.slowyou.io;
 
-    root /var/www/html/slowyouio;
-    index index.html index.htm index.nginx-debian.html;
-
+    # SSL Certificate Configuration
     ssl_certificate /etc/letsencrypt/live/slowyou.io/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/slowyou.io/privkey.pem;
     include /etc/letsencrypt/options-ssl-nginx.conf;
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 
-    location / {
-        try_files $uri $uri/ =404;
-    }
+    # Define the root where static files are stored
+    root /var/www/html/slowyouio/public;
 
-    location ~* \.(?:css|js|jpg|jpeg|gif|png|ico|cur|gz|svg|svgz|mp4|ogg|ogv|webm|htc)$ {
-        expires 1M;
-        access_log off;
+    # Serve static files directly
+    location ~* \.(css|js|jpg|jpeg|gif|png|svg|ico|mp4|ogg|webm)$ {
+        expires 30d;  # Caching for 30 days
+        access_log off;  # Turn off access logging for static files
         add_header Cache-Control "public";
     }
 
-
-    location /site2 {
-        rewrite ^/site2(/.*)$ $1 break;  # Remove /site2 from the request URI before passing
-        proxy_pass http://localhost:3001;
-        include /etc/nginx/proxy_params;  # Assuming proxy parameters are defined in this file
-    }
-}
-
-# Subdomain for site2.slowyou.io
-server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
-    server_name site2.slowyou.io;
-
-    ssl_certificate /etc/letsencrypt/live/slowyou.io/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/slowyou.io/privkey.pem;
-    include /etc/letsencrypt/options-ssl-nginx.conf;
-    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
-
+    # Proxy all other requests to the Express application
     location / {
         proxy_pass http://localhost:3001;
-        include /etc/nginx/proxy_params;
-    }
-}
-
-# Configuration for maiken.slowyou.io
-server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
-    server_name maiken.slowyou.io;
-
-    root /var/www/html/slowyouio/maiken;
-    index index.html index.htm;
-
-    ssl_certificate /etc/letsencrypt/live/slowyou.io/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/slowyou.io/privkey.pem;
-    include /etc/letsencrypt/options-ssl-nginx.conf;
-    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
-
-    location / {
-        try_files $uri $uri/ =404;
-    }
-
-    # Optionally, if maiken.slowyou.io also needs to proxy to a backend:
-    location /app {
-        proxy_pass http://localhost:3002;  # Change to the actual port if different
         include /etc/nginx/proxy_params;
     }
 }
