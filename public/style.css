@@ -4,11 +4,12 @@ body, html {
     padding: 0;
     height: 100%;
     font-family: Arial, sans-serif;
+    background-color: #fbce90;
 }
 
 .hero {
     height: 100vh;
-    background: url('background.png') no-repeat center center/cover;
+   /* background: url('background.png') no-repeat center center/cover; */
     display: flex;
     justify-content: center;
     align-items: center;
