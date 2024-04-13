@@ -1,13 +1,14 @@
 import express from 'express';
 import path from 'path';
 import { getHTML, getCSS, getJavaScript, getImage, get404, get500 } from './functions.js';
+import { fileURLToPath } from 'url'; // Import the function from 'url' module
+
 
 const app = express();
-
+const __filename = fileURLToPath(import.meta.url); // Get the file path from the URL
+const __dirname = path.dirname(__filename); // Get the directory name from the file pa
 // Serve static files from the 'public' directory, only for specific routes
-app.use('/css', express.static(path.join(__dirname, 'public', 'css')));
-app.use('/js', express.static(path.join(__dirname, 'public', 'js')));
-app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
+app.use(express.static('public'));
 
 // Root route: Serve the HTML file from the root directory
 app.get('/', (req, res) => {

@@ -37,6 +37,13 @@ export function get500() {
 
 
 
+//ReferenceError: __dirname is not defined in ES module scope, you can use the following workaround:
+
+
+
+
+
+
 
 // Export your functions here
 
