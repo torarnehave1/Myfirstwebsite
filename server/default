@@ -1,0 +1,63 @@
+# HTTPS server configuration for slowyou.io
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name slowyou.io www.slowyou.io;
+
+    # SSL Certificate Configuration
+    ssl_certificate /etc/letsencrypt/live/slowyou.io/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/slowyou.io/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    # Define the root where the application code and static files are located
+    root /var/www/html/slowyouio;
+
+    # Serve static files directly from the 'public' subdirectory
+    location / {
+        try_files $uri $uri/ /public/$uri /public/$uri/ @nodejs;
+    }
+
+    # Capture non-static file requests and redirect them to the Node.js app
+    location @nodejs {
+        proxy_pass http://localhost:3000;  # Adjust this if your app listens on a different port
+        include /etc/nginx/proxy_params;  # Standard proxy settings
+    }
+
+    # Optional: Specific location for static files
+    location ~* ^/public/(.+\.(jpeg|jpg|png|gif|css|js|ico|html|xml|txt|svg))$ {
+        root /var/www/html/slowyouio;
+        try_files /public/$1 =404;
+        access_log off;
+        expires max;
+        add_header Cache-Control "public";
+    }
+}
+
+server {
+    server_name maiken.slowyou.io; # managed by Certbot
+
+    # Root directory for static files
+    root /var/www/html/slowyouio/maiken;
+
+    index index.html index.htm index.nginx-debian.html;
+
+    location / {
+        # First try to serve request as file, then
+        # as directory, then fall back to displaying a 404.
+        try_files $uri $uri/ =404;
+    }
+
+    listen [::]:443 ssl; # managed by Certbot
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/slowyou.io/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/slowyou.io/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+}
+
+server {
+    if ($host = maiken.slowyou.io) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+}

@@ -1,155 +1,22 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"></head><head></head><body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SlowYou.io - Embrace Your True Self</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="hero">
+        <div class="content">
+            <h1 class="headline"> The power of Body Awareness with SlowYou.io</h1>
+            <p class="subheadline">Join our journey towards joyfullness, inner peace and vitality</p>
+            <button onclick="location.href='signup.html'">Get Started</button>
+            <p class="subheadline">SlowYou.io</p>
+           
+        </div>
+    </div>
+</body>
+</html>
 
 
-  <title>Server Setup Summary</title>
-
-
-
-<h1>Server Setup Summary</h1>
-
-<p>Based on the command history in history.txt, it looks like you have:
-
-  Installed and configured Nginx as a web server
-  Installed Node.js and npm
-  Cloned a GitHub repository called Myfirstwebsite into /var/www/html
-  Configured Nginx to serve that site
-  Created a script.sh in /opt/scripts and set up a cron job to run it
-  Pulled changes from a GitHub repo called site2 and configured Nginx to serve it
-  Installed pm2 to run a Node.js server for site2
-  Upgraded packages with apt
-  Installed certbot and obtained SSL certificates for the sites with Let's Encrypt
-  <ul>
-
-    <li>Installed and configured Nginx as a web server</li>
-
-    <li>Installed Node.js and npm</li>
-
-    <li>Cloned a GitHub repository called Myfirstwebsite into /var/www/html</li>
-
-    <li>Configured Nginx to serve that site</li>
-
-    <li>Created a script.sh in /opt/scripts and set up a cron job to run it</li>
-
-    <li>Pulled changes from a GitHub repo called site2 and configured Nginx to serve it</li>
-
-    <li>Installed pm2 to run a Node.js server for site2</li>
-
-    <li>Upgraded packages with apt</li>
-
-    <li>Installed certbot and obtained SSL certificates for the sites with Let's Encrypt</li>
-
-  </ul>
-  So in summary, you have set up two websites on this server - one simple static site and one dynamic Node.js site. You
-  configured the web server, application servers, automation, and SSL encryption for these sites.</p>
-
-<h2>Setting up Nginx web server</h2>
-
-<h3>Install Nginx</h3>
-
-<pre>1  sudo apt install nginx
-</pre>
-
-<h3>Configure Nginx sites</h3>
-
-<p>Edited Nginx config file:</p>
-
-<pre>/etc/nginx/sites-available/default
-</pre>
-
-<h3>Restart Nginx</h3>
-
-<pre>10  sudo systemctl status nginx
-</pre>
-
-<h2>Setting up first website</h2>
-
-<h3>Clone GitHub repo</h3>
-
-<p>Cloned repo into /var/www/html folder:</p>
-
-<pre>63  git clone https://github.com/torarnehave1/Myfirstwebsite /var/www/html/Myfirstwebsite  
-</pre>
-
-<h3>Configure Nginx site</h3>
-
-<p>Edited Nginx config:</p>
-
-<pre>/etc/nginx/sites-available/default
-</pre>
-
-<h3>Restart Nginx</h3>
-
-<pre>78  sudo systemctl restart nginx
-</pre>
-
-<h2>Automating site pull with cronjob</h2>
-
-<h3>Create script</h3>
-
-<p>Created script at:</p>
-
-<pre>/opt/scripts/script.sh
-</pre>
-
-<p>Made executable:</p>
-
-<pre>114  sudo chmod +x /opt/scripts/script.sh
-</pre>
-
-<h3>Cronjob</h3>  
-
-<p>Cronjob file:</p>
-
-<pre>/etc/cron.d/cronscript
-</pre>
-
-<p>Made executable:</p>
-
-<pre>93 chmod 644 /etc/cron.d/cronscript
-</pre>
-
-<h3>Restart cron</h3>
-
-<pre>  
-96 sudo systemctl restart cron
-</pre>
-
-<h2>Setting up second website</h2>
-
-<h3>Clone GitHub repo</h3>
-
-<p>Cloned into /var/www/html/site2:</p>
-
-<pre>130 git clone https://github.com/torarnehave1/site2 /var/www/html/site2
-</pre>
-
-<h3>Configure Nginx</h3>
-
-<p>Edited Nginx config:</p>
-
-<pre>  
-/etc/nginx/sites-available/default
-</pre>
-
-<h3>Setup Node.js site with pm2</h3>
-
-<pre>147 sudo npm install pm2@latest -g
-150 pm2 start server.js --name "my-site2"
-</pre>
-
-<h2>SSL Certificates</h2> 
-
-<h3>Install certbot</h3>
-
-<pre>186 sudo apt install certbot python3-certbot-nginx 
-</pre>
-
-<h3>Obtain SSL certs</h3>
-
-<pre>187 sudo certbot --nginx
-</pre>
-
-
-
-</body></html>
