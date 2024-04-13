@@ -8,7 +8,9 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url); // Get the file path from the URL
 const __dirname = path.dirname(__filename); // Get the directory name from the file pa
 // Serve static files from the 'public' directory, only for specific routes
-app.use(express.static('public'));
+//app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 // Root route: Serve the HTML file from the root directory
 app.get('/', (req, res) => {
