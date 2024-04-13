@@ -18,6 +18,7 @@ app.use('/public', express.static(__dirname + '/public'));
 // Root route: Serve the HTML file from the root directory
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
+  //res.sendFile(__dirname + '/public/index/index.html');
 });
 
 // You can also use the getHTML() if it returns the HTML file content
