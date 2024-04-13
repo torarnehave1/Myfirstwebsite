@@ -10,7 +10,9 @@ const __dirname = path.dirname(__filename); // Get the directory name from the f
 // Serve static files from the 'public' directory, only for specific routes
 //app.use(express.static('public'));
 //app.use(express.static(path.join(__dirname, 'public')));
-app.use("/", express.static(__dirname));
+//app.use("/", express.static(__dirname));
+
+app.use('/public', express.static(__dirname + '/public'));
 
 
 // Root route: Serve the HTML file from the root directory
