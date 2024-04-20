@@ -9,17 +9,38 @@ import cors from 'cors';
 const app = express();
 app.use(cors()); // This enables CORS for all routes and all origins
 
+db.getConnection()
+  .then(() => {
+    console.log('Connected to the database successfully');
+    logUsers(); // Call the function to log all users
+    app.listen(3000, () => {
+      console.log('Server is running on port 3000');
+    });
+  })
+  .catch((err) => {
+    console.error('Unable to connect to the database:', err);
+  });
+
 
 app.get('/api/users', async (req, res) => {
-  try {
-    console.log('Reached /api/users route');
-    const [rows] = await db.execute('SELECT * FROM users');
-    res.send(JSON.stringify(rows));
-  } catch (error) {
-    console.error('Failed to fetch users:', error);
-    res.status(500).send('Internal Server Error');
-  }
+  console.log('Reached /api/users route');
+  // Hardcoded test data for users with IDs 1 and 2
+  res.json([
+    { id: 1, name: 'Alice' },
+    { id: 2, name: 'Bob' }
+  ]);
 });
+
+// app.get('/api/users', async (req, res) => {
+//   try {
+//     console.log('Reached /api/users route');
+//     const [rows] = await db.execute('SELECT * FROM users');
+//     res.send(JSON.stringify(rows));
+//   } catch (error) {
+//     console.error('Failed to fetch users:', error);
+//     res.status(500).send('Internal Server Error');
+//   }
+// });
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -53,26 +74,14 @@ app.use((err, req, res, next) => {
 });
 
 // Check database connection and log all users
-db.getConnection()
-  .then(() => {
-    console.log('Connected to the database successfully');
-    logUsers(); // Call the function to log all users
-    app.listen(3000, () => {
-      console.log('Server is running on port 3000');
-    });
-  })
-  .catch((err) => {
-    console.error('Unable to connect to the database:', err);
-  });
-
-// async function logUsers() {
-//     try {
-//         const [users] = await db.execute('SELECT * FROM users');
-//         console.log('All users:', users);
-//     } catch (error) {
-//         console.error('Error retrieving users:', error);
-//     }
-// }
+async function logUsers() {
+    try {
+        const [users] = await db.execute('SELECT * FROM users');
+        console.log('All users:', users);
+    } catch (error) {
+        console.error('Error retrieving users:', error);
+    }
+}
   
 
 
