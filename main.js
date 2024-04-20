@@ -63,15 +63,21 @@ async function logUsers() {
 
 
 app.get('/api/users', async (req, res) => {
-  try {
+  
+  
+
+  app.get('/api/users', async (req, res) => {
+    try {
+      console.log('Reached /api/users route');
       const [rows] = await db.execute('SELECT * FROM users');
-      res.setHeader('Content-Type', 'application/json'); // Set the Content-Type header
-      res.json(rows); // Send the JSON response
-  } catch (error) {
+      res.setHeader('Content-Type', 'application/json');
+      res.json(rows);
+    } catch (error) {
       console.error('Failed to fetch users:', error);
-      res.status(500).json({ error: 'Error fetching users' });
-  }
-});
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+  
 
 
 app.post('/api/log-error', (req, res) => {
