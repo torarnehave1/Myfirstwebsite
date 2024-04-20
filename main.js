@@ -54,16 +54,6 @@ app.get('/api/test-db', async (req, res) => {
 //   ]);
 // });
 
-// app.get('/api/users', async (req, res) => {
-//   try {
-//     console.log('Reached /api/users route');
-//     const [rows] = await db.execute('SELECT * FROM users');
-//     res.send(JSON.stringify(rows));
-//   } catch (error) {
-//     console.error('Failed to fetch users:', error);
-//     res.status(500).send('Internal Server Error');
-//   }
-// });
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -95,21 +85,5 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send(get500());
 });
-
-// Check database connection and log all users
-// async function logUsers() {
-//     try {
-//         const [users] = await db.execute('SELECT * FROM users');
-//         console.log('All users:', users);
-//     } catch (error) {
-//         console.error('Error retrieving users:', error);
-//     }
-// }
-  
-
-
-
-
-
 
 export default app;
