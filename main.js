@@ -21,15 +21,27 @@ db.getConnection()
     console.error('Unable to connect to the database:', err);
   });
 
+  app.get('/api/users', async (req, res) => {
+    console.log('Reached /api/users route');
+  
+    try {
+      await db.getConnection();
+      res.json({ status: 'Connected' });
+    } catch (error) {
+      console.error('Failed to connect to the database:', error);
+      res.status(500).json({ status: 'Error', error: error.message });
+    }
+  });
+  
 
-app.get('/api/users', async (req, res) => {
-  console.log('Reached /api/users route');
-  // Hardcoded test data for users with IDs 1 and 2
-  res.json([
-    { id: 1, name: 'Alice' },
-    { id: 2, name: 'Bob' }
-  ]);
-});
+// app.get('/api/users', async (req, res) => {
+//   console.log('Reached /api/users route');
+//   // Hardcoded test data for users with IDs 1 and 2
+//   res.json([
+//     { id: 1, name: 'Alice' },
+//     { id: 2, name: 'Bob' }
+//   ]);
+// });
 
 // app.get('/api/users', async (req, res) => {
 //   try {
