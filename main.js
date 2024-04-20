@@ -27,6 +27,7 @@ db.getConnection()
     try {
       await db.getConnection();
       res.json({ status: 'Connected' });
+      logUsers();
     } catch (error) {
       console.error('Failed to connect to the database:', error);
       res.status(500).json({ status: 'Error', error: error.message });
