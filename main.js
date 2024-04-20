@@ -16,7 +16,28 @@ db.getConnection().then(() => {
   console.error('Error connecting to database:', error);
 });
 
+const PORT = process.env.PORT || 3000;
 
+app.get('/api/test-env', (req, res) => {
+  const envVars = {
+    DB_HOST: process.env.DB_HOST,
+    DB_USER: process.env.DB_USER,
+    DB_PASSWORD: process.env.DB_PASSWORD,
+    DB_NAME: process.env.DB_NAME
+  };
+
+  // Check if all required environment variables are present
+  const missingVars = Object.entries(envVars).filter(([key, value]) => !value).map(([key]) => key);
+  if (missingVars.length) {
+    return res.status(400).json({ error: 'Missing environment variables', missingVars });
+  }
+
+  res.json({ status: 'Success', message: 'All required environment variables are set.', envVars });
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
 app.get('/api/users', async (req, res) => {
   try {
