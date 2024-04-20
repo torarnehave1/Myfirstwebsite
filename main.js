@@ -11,12 +11,14 @@ app.use(cors()); // This enables CORS for all routes and all origins
 
 
 app.get('/api/users', async (req, res) => {
-  console.log('Reached /api/users route');
-  // Hardcoded test data for users with IDs 1 and 2
-  res.json([
-    { id: 1, name: 'Alice' },
-    { id: 2, name: 'Bob' }
-  ]);
+  try {
+    console.log('Reached /api/users route');
+    const [rows] = await db.execute('SELECT * FROM users');
+    res.send(JSON.stringify(rows));
+  } catch (error) {
+    console.error('Failed to fetch users:', error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
 
@@ -63,26 +65,17 @@ db.getConnection()
     console.error('Unable to connect to the database:', err);
   });
 
-async function logUsers() {
-    try {
-        const [users] = await db.execute('SELECT * FROM users');
-        console.log('All users:', users);
-    } catch (error) {
-        console.error('Error retrieving users:', error);
-    }
-}
+// async function logUsers() {
+//     try {
+//         const [users] = await db.execute('SELECT * FROM users');
+//         console.log('All users:', users);
+//     } catch (error) {
+//         console.error('Error retrieving users:', error);
+//     }
+// }
   
 
-// app.get('/api/users', async (req, res) => {
-//   try {
-//     console.log('Reached /api/users route');
-//     const [rows] = await db.execute('SELECT * FROM users');
-//     res.send(JSON.stringify(rows));
-//   } catch (error) {
-//     console.error('Failed to fetch users:', error);
-//     res.status(500).send('Internal Server Error');
-//   }
-// });
+
 
 
 
