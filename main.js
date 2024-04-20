@@ -10,30 +10,20 @@ const app = express();
 app.use(cors()); // This enables CORS for all routes and all origins
 
 
-  app.get('/api/users', async (req, res) => {
-    console.log('Reached /api/users route');
-  
-    try {
-      // Check the database connection
-      await db.getConnection();
-      console.log('Connected to the database');
-  
-      // Execute the SELECT query
-      const [users] = await db.execute('SELECT * FROM users');
-      console.log('All users:', users);
-  
-      res.json({ status: 'Connected', users: users });
-    } catch (error) {
-      console.error('Error:', error);
-  
-      if (error.code === 'ECONNREFUSED') {
-        res.status(500).json({ status: 'Error', error: 'Database connection refused' });
-      } else {
-        res.status(500).json({ status: 'Error', error: 'Internal server error' });
-      }
-    }
-  });
-  
+app.get('/api/users', async (req, res) => {
+  try {
+    await db.getConnection();  // Ensure database connection
+    const [users] = await db.execute('SELECT * FROM users');  // Fetch users
+
+    res.json({ status: 'Connected', users: users });
+  } catch (error) {
+    console.error('Error:', error);
+    const message = error.code === 'ECONNREFUSED' ? 'Database connection refused' : 'Internal server error';
+    
+    res.status(500).json({ status: 'Error', error: message });
+  }
+});
+
 // app.get('/api/users', async (req, res) => {
 //   console.log('Reached /api/users route');
 //   // Hardcoded test data for users with IDs 1 and 2
