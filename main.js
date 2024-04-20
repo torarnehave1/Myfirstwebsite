@@ -24,6 +24,17 @@ app.get('/api/users', async (req, res) => {
   }
 });
 
+app.get('/api/test-db', async (req, res) => {
+  try {
+    await db.getConnection();  // Attempt to connect to the database
+    res.json({ status: 'Success', message: 'Successfully connected to the database.' });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ status: 'Error', message: 'Failed to connect to the database.' });
+  }
+});
+
+
 // app.get('/api/users', async (req, res) => {
 //   console.log('Reached /api/users route');
 //   // Hardcoded test data for users with IDs 1 and 2
