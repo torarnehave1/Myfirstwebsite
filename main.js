@@ -9,17 +9,6 @@ import cors from 'cors';
 const app = express();
 app.use(cors()); // This enables CORS for all routes and all origins
 
-db.getConnection()
-  .then(() => {
-    console.log('Connected to the database successfully');
-    logUsers(); // Call the function to log all users
-    app.listen(3000, () => {
-      console.log('Server is running on port 3000');
-    });
-  })
-  .catch((err) => {
-    console.error('Unable to connect to the database:', err);
-  });
 
   app.get('/api/users', async (req, res) => {
     console.log('Reached /api/users route');
