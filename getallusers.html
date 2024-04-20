@@ -1,51 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-<div class="container">
-    <h1>Users</h1>
-    <button onclick="fetchUsers()">Fetch Users</button>
-    <div id="users-list">
-        
-    </div>
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Document</title> </head> <body> <div class="container"> <h1>Users</h1> <button onclick="fetchUsers()">Fetch Users</button> <div id="users-list">
+
+</div>
+
+<script> function fetchUsers() 
+
+{ fetch('/api/users') 
 
 
 
-<script>
-    function fetchUsers() {
-    fetch('/api/users')
-        .then(response => {
-            // Clone the response stream in order to log the text and then parse it as JSON
-            response.clone().text().then(text => {
-                console.log("Raw response:", text); // Log the raw response text
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            return response.json(); // Proceed to parse the response as JSON
-        })
-        .then(users => {
-            const usersList = document.getElementById('users-list');
-            usersList.innerHTML = ''; // Clear previous list
-            users.forEach(user => {
-                const listItem = document.createElement('li');
-                listItem.textContent = `ID: ${user.id}, Name: ${user.username}, Email: ${user.email}`; // Adjust the properties based on your user object structure
-                usersList.appendChild(listItem);
-            });
-        })
-        .catch(error => {
-            console.error("Error fetching users:", error);
-            document.getElementById('users-list').innerHTML = `<li>Error: ${error.message}</li>`;
-        });
-}
-
-</script>
-</body>
-</html>
+}</script> 
+</body> </html> 

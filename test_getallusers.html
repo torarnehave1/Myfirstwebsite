@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>API Test</title>
+</head>
+<body>
+  <script>
+    // Test if /api/users returns any data
+    async function testApiUsers() {
+      const response = await fetch('/api/users');
+      const data = await response.json();
+
+      if (data.length > 0) {
+        console.log('Test passed: /api/users returned data');
+      } else {
+        console.error('Test failed: /api/users did not return any data');
+      }
+    }
+
+    // Run the test
+    testApiUsers();
+  </script>
+</body>
+</html>
