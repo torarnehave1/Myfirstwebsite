@@ -60,10 +60,6 @@ async function logUsers() {
         console.error('Error retrieving users:', error);
     }
 }
-
-
-app.get('/api/users', async (req, res) => {
-  
   
 
   app.get('/api/users', async (req, res) => {
