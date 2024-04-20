@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Error</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+        h1 { color: #b00; }
+        p { color: #666; }
+        button { background: #0044cc; color: #fff; border: none; padding: 10px 20px; margin-top: 20px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>500 - Internal Server Error</h1>
+    <p>Oops! Something went wrong on our side. Please try again later.</p>
+    <button onclick="reportError()">Report this error</button>
+    
+    <script>
+        function reportError() {
+            console.error('Reporting the server error for further investigation.');
+            // Assuming there is an endpoint to receive logs
+            fetch('/api/log-error', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    error: '500 Internal Server Error',
+                    message: 'An unexpected error occurred',
+                    url: window.location.href,
+                    timestamp: new Date().toISOString()
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Error reported successfully:', data);
+                alert('Thank you for reporting this issue. We will look into it as soon as possible.');
+            })
+            .catch(error => {
+                console.error('Failed to report error:', error);
+                alert('Failed to report the error. Please contact support directly.');
+            });
+        }
+    </script>
+</body>
+</html>
