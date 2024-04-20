@@ -10,6 +10,14 @@ const app = express();
 app.use(cors()); // This enables CORS for all routes and all origins
 
 
+db.getConnection().then(() => { 
+  console.log('Connected to database');
+}).catch((error) => {
+  console.error('Error connecting to database:', error);
+});
+
+
+
 app.get('/api/users', async (req, res) => {
   try {
     await db.getConnection();  // Ensure database connection
@@ -25,13 +33,13 @@ app.get('/api/users', async (req, res) => {
 });
 
 app.get('/api/test-db', async (req, res) => {
-  try {
-    await db.getConnection();  // Attempt to connect to the database
-    res.json({ status: 'Success', message: 'Successfully connected to the database.' });
-  } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ status: 'Error', message: 'Failed to connect to the database.' });
-  }
+ 
+  db.getConnection().then(() => { 
+    console.log('Connected to database');
+  }).catch((error) => {
+    console.error('Error connecting to database:', error);
+  });
+  
 });
 
 
