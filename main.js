@@ -25,16 +25,26 @@ db.getConnection()
     console.log('Reached /api/users route');
   
     try {
+      // Check the database connection
       await db.getConnection();
-      res.json({ status: 'Connected' });
-      logUsers();
+      console.log('Connected to the database');
+  
+      // Execute the SELECT query
+      const [users] = await db.execute('SELECT * FROM users');
+      console.log('All users:', users);
+  
+      res.json({ status: 'Connected', users: users });
     } catch (error) {
-      console.error('Failed to connect to the database:', error);
-      res.status(500).json({ status: 'Error', error: error.message });
+      console.error('Error:', error);
+  
+      if (error.code === 'ECONNREFUSED') {
+        res.status(500).json({ status: 'Error', error: 'Database connection refused' });
+      } else {
+        res.status(500).json({ status: 'Error', error: 'Internal server error' });
+      }
     }
   });
   
-
 // app.get('/api/users', async (req, res) => {
 //   console.log('Reached /api/users route');
 //   // Hardcoded test data for users with IDs 1 and 2
@@ -87,14 +97,14 @@ app.use((err, req, res, next) => {
 });
 
 // Check database connection and log all users
-async function logUsers() {
-    try {
-        const [users] = await db.execute('SELECT * FROM users');
-        console.log('All users:', users);
-    } catch (error) {
-        console.error('Error retrieving users:', error);
-    }
-}
+// async function logUsers() {
+//     try {
+//         const [users] = await db.execute('SELECT * FROM users');
+//         console.log('All users:', users);
+//     } catch (error) {
+//         console.error('Error retrieving users:', error);
+//     }
+// }
   
 
 
