@@ -62,16 +62,43 @@ async function logUsers() {
 }
   
 
-  app.get('/api/users', async (req, res) => {
-    try {
-      console.log('Reached /api/users route');
-      const [rows] = await db.execute('SELECT * FROM users');
-      res.send(JSON.stringify(rows));
-    } catch (error) {
-      console.error('Failed to fetch users:', error);
-      res.status(500).send('Internal Server Error');
-    }
-  });
+// app.get('/api/users', async (req, res) => {
+//   try {
+//     console.log('Reached /api/users route');
+//     const [rows] = await db.execute('SELECT * FROM users');
+//     res.send(JSON.stringify(rows));
+//   } catch (error) {
+//     console.error('Failed to fetch users:', error);
+//     res.status(500).send('Internal Server Error');
+//   }
+// });
+
+app.get('/api/users', async (req, res) => {
+  console.log('Reached /api/users route');
+  // Hardcoded test data for users with IDs 1 and 2
+  const testData = [
+      {
+          id: 1,
+          username: 'torarne',
+          email: 'torarnehave@gmail.com',
+          password: 'dev_Mandala1.',
+          role: 'admin',
+          created_at: '2024-04-20T07:58:13.000Z',
+          updated_at: '2024-04-20T07:58:13.000Z'
+      },
+      {
+          id: 2,
+          username: 'maiken',
+          email: 'msneeggen@gmail.com',
+          password: 'dev_Mandala24.',
+          role: 'admin',
+          created_at: '2024-04-20T07:59:07.000Z',
+          updated_at: '2024-04-20T07:59:07.000Z'
+      }
+  ];
+
+  res.json(testData); // Send the hardcoded data as JSON
+});
 
 
 app.post('/api/log-error', (req, res) => {
