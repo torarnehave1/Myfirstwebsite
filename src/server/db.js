@@ -17,7 +17,7 @@ function createConnectionPool() {
             connectionLimit: 10,
             queueLimit: 0
         });
-        console.log("Database connection successfully established.");
+        console.log("Database TITTT connection successfully established.");
         return pool;
     } catch (error) {
         console.error("Database connection failed:", error);
