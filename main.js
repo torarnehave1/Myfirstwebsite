@@ -1,6 +1,6 @@
 import express from 'express';
 import path from 'path';
-import db from './config/db.js'; // Import the database pool you configured
+import db from './scr/server/db.js'; // Import the database pool you configured
 import { getHTML, getCSS, getJavaScript, getImage, get404, get500 } from './functions.js';
 import { fileURLToPath } from 'url';
 
