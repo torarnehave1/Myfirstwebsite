@@ -36,8 +36,10 @@ app.get('/api/test-db', async (req, res) => {
  
   db.getConnection().then(() => { 
     console.log('Connected to database');
+    res.send('Connected to database');
   }).catch((error) => {
     console.error('Error connecting to database:', error);
+    res.status(500).send('Error connecting to database');
   });
   
 });
