@@ -5,7 +5,7 @@ const expect = _expect;
 describe('API Test', function() {
   it('should return valid JSON', async function() {
     try {
-      const response = await fetch('https://localhost:3000/api/users');
+      const response = await fetch('http://localhost:3000/api/users');
       console.log('Status:', response.status, response.statusText);
       expect(response.ok).to.be.true;
 
