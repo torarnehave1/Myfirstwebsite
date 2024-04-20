@@ -66,14 +66,12 @@ async function logUsers() {
     try {
       console.log('Reached /api/users route');
       const [rows] = await db.execute('SELECT * FROM users');
-      res.setHeader('Content-Type', 'application/json');
-      res.json(rows);
+      res.send(JSON.stringify(rows));
     } catch (error) {
       console.error('Failed to fetch users:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
+      res.status(500).send('Internal Server Error');
     }
   });
-  
 
 
 app.post('/api/log-error', (req, res) => {
