@@ -46,6 +46,8 @@ app.get('/api/users', async (req, res) => {
     const [users] = await db.execute('SELECT * FROM users');  // Fetch users
 
     res.json({ status: 'Connected', users: users });
+    console.log('Fetched users:', users);
+
   } catch (error) {
     console.error('Error:', error);
     const message = error.code === 'ECONNREFUSED' ? 'Database connection refused' : 'Internal server error';
@@ -68,7 +70,8 @@ app.get('/api/test-db', async (req, res) => {
 
 
 app.get('/hel', (req, res) => {
-  res.send('Hello');
+  res.send('Hello HEL');
+  console.log('TAH');
 });
 
 app.get('/hello', (req, res) => {
@@ -85,7 +88,7 @@ app.get('/concat', (req, res) => {
 
   const result = `${ID}${Name}`;
   
-  //console.log(JSON.stringify({ result }));
+  console.log(JSON.stringify({ result }));
 
   res.send(result);
 });
