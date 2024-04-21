@@ -80,7 +80,7 @@ app.get('/concat', (req, res) => {
 
   const result = `${ID}${Name}`;
   
-  console.log(JSON.stringify({ result }));
+  //console.log(JSON.stringify({ result }));
 
   res.send(result);
 });
