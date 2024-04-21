@@ -70,6 +70,21 @@ app.get('/hello', (req, res) => {
   res.send('Hello');
 });
 
+app.get('/api/concat', (req, res) => {
+  const { ID, Name } = req.query;
+
+  // Check if ID and Name are provided and ID is a number
+  if (!ID || !Name || isNaN(ID)) {
+    return res.status(400).send({ error: 'Invalid parameters' });
+  }
+
+  const result = `${ID}${Name}`;
+  
+  console.log(JSON.stringify({ result }));
+
+  res.send(result);
+});
+
 // app.get('/api/users', async (req, res) => {
 //   console.log('Reached /api/users route');
 //   // Hardcoded test data for users with IDs 1 and 2
