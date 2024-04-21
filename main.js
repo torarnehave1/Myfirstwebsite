@@ -70,7 +70,7 @@ app.get('/hello', (req, res) => {
   res.send('Hello');
 });
 
-app.get('/api/concat', (req, res) => {
+app.get('/concat', (req, res) => {
   const { ID, Name } = req.query;
 
   // Check if ID and Name are provided and ID is a number
