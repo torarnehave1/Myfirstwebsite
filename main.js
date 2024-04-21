@@ -67,13 +67,6 @@ app.get('/api/test-db', async (req, res) => {
 });
 
 
-app.get('/bruker', async (req, res) => {
-  
-  // Here you would typically fetch user data based on the userId
-  res.send(`bruker`);
-});
-
-
 app.get('/hel', (req, res) => {
   res.send('Hello');
 });
