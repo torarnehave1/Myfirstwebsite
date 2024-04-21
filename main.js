@@ -3,8 +3,12 @@ import path from 'path';
 import db from './src/server/db.js'; // Make sure the path to your db config is correct
 import { getHTML, getCSS, getJavaScript, getImage, get404, get500 } from './functions.js';
 import { fileURLToPath } from 'url';
-
 import cors from 'cors';
+import dotenv from 'dotenv';
+dotenv.config();
+
+console.log('Environment Variables:', process.env);
+
 
 const app = express();
 app.use(cors()); // This enables CORS for all routes and all origins
@@ -17,23 +21,20 @@ db.getConnection().then(() => {
 });
 
 const PORT = process.env.PORT || 3000;
+ 
 
-app.get('/api/test-env', (req, res) => {
-  const envVars = {
-    DB_HOST: process.env.DB_HOST,
-    DB_USER: process.env.DB_USER,
-    DB_PASSWORD: process.env.DB_PASSWORD,
-    DB_NAME: process.env.DB_NAME
-  };
+app.get('/test-env', (req, res) => {
+  
+  const dbHost = process.env.DUMMY_DB_HOST;
+  const env = process.env.DUMMY_ENV;
 
-  // Check if all required environment variables are present
-  const missingVars = Object.entries(envVars).filter(([key, value]) => !value).map(([key]) => key);
-  if (missingVars.length) {
-    return res.status(400).json({ error: 'Missing environment variables', missingVars });
+  if (!dbHost || !env) {
+    return res.status(500).send('Unable to read .env variables');
   }
 
-  res.json({ status: 'Success', message: 'All required environment variables are set.', envVars });
+  res.send(`DUMMY_DB_HOST is ${dbHost} and DUMMY_ENV is ${env}`);
 });
+
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
@@ -63,6 +64,13 @@ app.get('/api/test-db', async (req, res) => {
     res.status(500).send('Error connecting to database TAH');
   });
   
+});
+
+
+app.get('/bruker', (req, res) => {
+  
+  // Here you would typically fetch user data based on the userId
+  res.send(`bruker`);
 });
 
 
@@ -105,7 +113,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.get('/style.css', (req, res) => {
+app.get('/css/style.css', (req, res) => {
   res.send(getCSS());
 });
 
