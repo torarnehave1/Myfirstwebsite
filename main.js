@@ -66,6 +66,10 @@ app.get('/api/test-db', async (req, res) => {
 });
 
 
+app.get('/hello', (req, res) => {
+  res.send('Hello');
+});
+
 // app.get('/api/users', async (req, res) => {
 //   console.log('Reached /api/users route');
 //   // Hardcoded test data for users with IDs 1 and 2
