@@ -1,7 +1,7 @@
 import express from 'express';
 import db from '../db/db.js'; // Assuming you have a db.js file for database connection
 import dotenv from 'dotenv';
-import User from '../db/models/user';
+import User from '../models/user';
   
 
 dotenv.config();
