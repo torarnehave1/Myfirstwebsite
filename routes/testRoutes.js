@@ -1,7 +1,8 @@
 import express from 'express';
 import db from '../db/db.js'; // Assuming you have a db.js file for database connection
 import dotenv from 'dotenv';
-
+import User from '../db/models/user';
+  
 
 dotenv.config();
 
@@ -22,6 +23,18 @@ router.get('/test-env', (req, res) => {
   });
   
   
+ 
+  
+  router.get('/users', async (req, res) => {
+    try {
+      const users = await User.findAll();
+      res.render('users', { users });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  });
+  
+ 
   
   
   router.get('/usrs', async (req, res) => {
