@@ -3,23 +3,32 @@
 <head>
   <title>Users</title>
   <style>
-    .usrtabl {
-      display: flex;      /* Use flexbox to lay out children inline */
-      align-items: center; /* Center items vertically */
-      gap: 20px;           /* Add space between items */
+    .usrtabl, .usrtabl-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
     }
-    .usrtabl p {
-      margin: 0; /* Remove default paragraph margins */
+    .usrtabl p, .usrtabl-header p {
+      margin: 0;
+      font-weight: bold; /* Makes header text bold */
+    }
+    .usrtabl-header {
+      margin-bottom: 10px; /* Adds space between the header and user entries */
     }
   </style>
 </head>
 <body>
   <h1>Users</h1>
+  <div class="usrtabl-header">
+    <p>Username</p>
+    <p>Email</p>
+    <p>Password</p>
+  </div>
   <% users.forEach(user => { %>
     <div class="usrtabl">
-      <p>Username: <%= user.username %></p>
-      <p>Email: <%= user.email %></p>
-      <p>Password: <%= user.password %></p>
+      <p><%= user.username %></p>
+      <p><%= user.email %></p>
+      <p><%= user.password %></p>
     </div>
   <% }); %>
 </body>
