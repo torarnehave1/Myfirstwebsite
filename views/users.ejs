@@ -1,35 +1,77 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Users</title>
+  <title>Bruker</title>
   <style>
+    body {
+      display: flex;
+      justify-content: center; /* Centers the .table-container on the page horizontally */
+      align-items: center; /* Centers vertically */
+      min-height: 100vh; /* Full viewport height */
+      background-color: #f4f4f4; /* Light grey background for the page */
+      margin: 0; /* Removes default margin */
+      font-family: Arial, sans-serif; /* Optional: Sets a sans-serif font */
+    }
+    .table-container {
+      background-color: #555353; /* Dark background for the container */
+      color: #fff; /* White text color */
+      padding: 20px;
+      border-radius: 8px; /* Rounded corners for the container */
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Adds subtle shadow */
+      width: 80%; /* Adjust width as necessary */
+      max-width: 600px; /* Ensures container does not get too wide on larger screens */
+    }
     .usrtabl, .usrtabl-header {
       display: flex;
       align-items: center;
       gap: 20px;
+      margin: 0;
+      padding: 0;
     }
     .usrtabl p, .usrtabl-header p {
+      flex: 1; /* Ensures each column takes equal space */
+      padding: 10px; /* Uniform padding for alignment */
       margin: 0;
-      font-weight: bold; /* Makes header text bold */
+      text-align: left; /* Aligns text to the left */
     }
     .usrtabl-header {
-      margin-bottom: 10px; /* Adds space between the header and user entries */
+      background-color: #0c0c0c; /* Dark grey background for the header */
+      border-radius: 5px; /* Rounded corners for the header */
+      margin-bottom: 5px; /* Space between header and rows */
+    
+    }
+    .usrtabl {
+           border: 1px solid antiquewhite; /* Adds a border around user data rows */
+          @keyframes fadeIn {
+            from {
+              opacity: 0;
+            }
+            to {
+              opacity: 1;
+            }
+          }
+
+          .usrtabl {
+            border: 1px solid antiquewhite;
+            animation: fadeIn 0.5s ease-in-out; /* Apply the animation to the table rows */
+          border-style: initial;
+          }
     }
   </style>
 </head>
 <body>
-  <h1>Users</h1>
-  <div class="usrtabl-header">
-    <p>Username</p>
-    <p>Email</p>
-    <p>Password</p>
-  </div>
-  <% users.forEach(user => { %>
-    <div class="usrtabl">
-      <p><%= user.username %></p>
-      <p><%= user.email %></p>
-      <p><%= user.password %></p>
+  <div class="table-container">
+    <h1>Users</h1>
+    <div class="usrtabl-header">
+      <p>Username</p>
+      <p>Email</p>
     </div>
-  <% }); %>
+    <% users.forEach(user => { %>
+      <div class="usrtabl">
+        <p><%= user.username %></p>
+        <p><%= user.email %></p>
+      </div>
+    <% }); %>
+  </div>
 </body>
 </html>
