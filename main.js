@@ -15,6 +15,8 @@ console.log('Environment Variables:', process.env);
 
 
 const app = express();
+app.set('view engine', 'ejs');
+
 app.use(cors()); // This enables CORS for all routes and all origins
 
 app.use('/t', testRoutes); //  ./t for tests routes
